@@ -5,8 +5,8 @@ services:
     image: prom/alertmanager
     container_name: alertmanager
     command:
-      - '--config.file=/etc/alertmanager/config.yml'
-      - '--storage.path=/alertmanager'
+      - "--config.file=/etc/alertmanager/config.yml"
+      - "--storage.path=/alertmanager"
     volumes:
       - ./config/alertmanager.yml:/etc/alertmanager/config.yml
     ports:
@@ -15,19 +15,19 @@ services:
       - public
 
   loki:
-   image: grafana/loki:2.7.4
-   container_name: loki
-   volumes:
-     - ./config/loki.yml:/etc/config/loki.yml
-     - ./rules/demo/rules.yml:/etc/loki/rules/fake/rules.yml
-   entrypoint:
-     - /usr/bin/loki
-     - -config.file=/etc/config/loki.yml
-   ports:
-     - "3100:3100"
-   depends_on:
-     - alertmanager
-   networks:
+    image: grafana/loki:2.7.4
+    container_name: loki
+    volumes:
+      - ./config/loki.yml:/etc/config/loki.yml
+      - ./rules/demo/rules.yml:/etc/loki/rules/fake/rules.yml
+    entrypoint:
+      - /usr/bin/loki
+      - -config.file=/etc/config/loki.yml
+    ports:
+      - "3100:3100"
+    depends_on:
+      - alertmanager
+    networks:
       - public
 
   grafana:
